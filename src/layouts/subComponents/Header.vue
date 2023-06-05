@@ -14,7 +14,7 @@
             <v-text-field
               v-model.trim="search"
               density="compact"
-              label="Packge name"
+              label="Package name"
             ></v-text-field>
             <v-btn type="submit">Search</v-btn>
           </v-form>

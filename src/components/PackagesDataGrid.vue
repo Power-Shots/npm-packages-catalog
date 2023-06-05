@@ -30,14 +30,13 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import {
-  packages_namespaced,
-  packages_getListTopPackages_action,
-  packages_setPage_mutation,
-  packages_setIsShowModal_mutation,
-} from "@/store/modules/packagesModule";
+import { PACKAGE_GET_LIST_TOP_PACKAGES_ACTION } from "@/store/modules/packagesModule";
 import Pagination from "./UI/Pagination.vue";
-import { packages_getPackageByName_action } from "../store/modules/packagesModule";
+import {
+  PACKAGE_GET_PACKAGE_BY_NAME_ACTION,
+  PACKAGE_SET_IS_SHOW_MODAL_MUTATION,
+  PACKAGE_SET_PAGE_MUTATION,
+} from "../store/modules/packagesModule";
 
 const store = useStore();
 const packages = computed(() => store.state.package.packages);
@@ -45,22 +44,21 @@ const page = computed(() => store.state.package.page);
 const totalPages = computed(() => store.state.package.totalPages);
 
 const handleChangePage = (newPage) => {
-  store.commit(packages_namespaced + packages_setPage_mutation, newPage);
-  store.dispatch(packages_namespaced + packages_getListTopPackages_action);
+  store.commit(PACKAGE_SET_PAGE_MUTATION, newPage);
+  store.dispatch(PACKAGE_GET_LIST_TOP_PACKAGES_ACTION);
 };
 
 const handleOpenModal = () => {
-  store.commit(packages_namespaced + packages_setIsShowModal_mutation, true);
+  store.commit(PACKAGE_SET_IS_SHOW_MODAL_MUTATION, true);
 };
 
 const getDetailPackageInfo = (packageName) => {
-  console.log(packageName);
   handleOpenModal();
-  store.dispatch(packages_namespaced + packages_getPackageByName_action, packageName)
+  store.dispatch(PACKAGE_GET_PACKAGE_BY_NAME_ACTION, packageName);
 };
 
 onMounted(() => {
-  store.dispatch(packages_namespaced + packages_getListTopPackages_action);
+  store.dispatch(PACKAGE_GET_LIST_TOP_PACKAGES_ACTION);
 });
 </script>
 
@@ -81,6 +79,10 @@ onMounted(() => {
 
   .row {
     cursor: pointer;
+    transition: all 0.2s linear;
+    &:hover {
+      background: $background-gray800;
+    }
   }
 }
 </style>
