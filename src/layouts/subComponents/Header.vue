@@ -16,7 +16,11 @@
               density="compact"
               label="Package name"
             ></v-text-field>
-            <v-btn type="submit">Search</v-btn>
+            <v-btn
+              @click="store.commit(PACKAGE_SET_SEARCH_QUERY_MUTATION, search)"
+              type="submit"
+              >Search</v-btn
+            >
           </v-form>
         </v-col>
       </v-row>
@@ -26,7 +30,9 @@
 
 <script setup>
 import { ref } from "vue";
-
+import { useStore } from "vuex";
+import { PACKAGE_SET_SEARCH_QUERY_MUTATION } from "../../store/modules/packagesModule";
+const store = useStore();
 const search = ref("");
 </script>
 

@@ -16,6 +16,9 @@ const SET_SELECTED_PACKAGE = "setSelectedPackage";
 const GET_LIST_TOP_PACKAGES_ACTION = "getListTopPackages";
 const GET_PACKAGE_BY_NAME_ACTION = "getPackageByName";
 
+//getters list
+const SEARCHED_PACKAGES = "searchedPackages";
+
 // mutations and actions with namespaced for export
 export const PACKAGE_SET_PACKAGES_MUTATION =
   PACKAGE_NAMESPACED + SET_PACKAGES_MUTATION;
@@ -36,6 +39,9 @@ export const PACKAGE_GET_LIST_TOP_PACKAGES_ACTION =
 export const PACKAGE_GET_PACKAGE_BY_NAME_ACTION =
   PACKAGE_NAMESPACED + GET_PACKAGE_BY_NAME_ACTION;
 
+export const PACKAGE_SEARCHED_PACKAGES_GETTER =
+  PACKAGE_NAMESPACED + SEARCHED_PACKAGES;
+
 const state = {
   selectedPackage: null,
   packages: [],
@@ -47,35 +53,41 @@ const state = {
   isShowModal: false,
 };
 
-const getters = {};
+const getters = {
+  searchedPackages(state) {
+    return [...state.packages].filter((item) =>
+      item.name.toLowerCase().includes(state.searchQuery.toLowerCase())
+    );
+  },
+};
 
 const mutations = {
-  [SET_PACKAGES_MUTATION] (state, packages) {
+  [SET_PACKAGES_MUTATION](state, packages) {
     state.packages = packages;
   },
 
-  [SET_LOADING_MUTATION] (state, bool) {
+  [SET_LOADING_MUTATION](state, bool) {
     state.isLoading = bool;
   },
-  [SET_PAGE_MUTATION] (state, page) {
+  [SET_PAGE_MUTATION](state, page) {
     state.page = page;
   },
-  [SET_TOTAL_PAGES_MUTATION] (state, totalPages) {
+  [SET_TOTAL_PAGES_MUTATION](state, totalPages) {
     state.totalPages = totalPages;
   },
-  [SET_SEARCH_QUERY_MUTATION] (state, searchQuery) {
+  [SET_SEARCH_QUERY_MUTATION](state, searchQuery) {
     state.searchQuery = searchQuery;
   },
-  [SET_IS_SHOW_MODAL_MUTATION] (state, isShowModal) {
+  [SET_IS_SHOW_MODAL_MUTATION](state, isShowModal) {
     state.isShowModal = isShowModal;
   },
-  [SET_SELECTED_PACKAGE] (state, selectedPackage) {
+  [SET_SELECTED_PACKAGE](state, selectedPackage) {
     state.selectedPackage = selectedPackage;
   },
 };
 
 const actions = {
-  async [GET_LIST_TOP_PACKAGES_ACTION] ({ state, commit }) {
+  async [GET_LIST_TOP_PACKAGES_ACTION]({ state, commit }) {
     const url = `${ROOT_END_POINT}stats/packages`;
     try {
       commit(SET_LOADING_MUTATION, true);
@@ -101,7 +113,7 @@ const actions = {
     }
   },
 
-  async [GET_PACKAGE_BY_NAME_ACTION] ({ commit }, packageName) {
+  async [GET_PACKAGE_BY_NAME_ACTION]({ commit }, packageName) {
     const url = `${ROOT_END_POINT}packages/npm/${packageName}`;
     try {
       commit(SET_LOADING_MUTATION, true);

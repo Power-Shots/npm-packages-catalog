@@ -11,7 +11,7 @@
       <tr
         class="row"
         @click="getDetailPackageInfo(item.name)"
-        v-for="item in packages"
+        v-for="item in searchedPackages"
         :key="item.id"
       >
         <td>{{ item.name.toUpperCase() }}</td>
@@ -30,21 +30,26 @@
 <script setup>
 import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
-import { PACKAGE_GET_LIST_TOP_PACKAGES_ACTION } from "@/store/modules/packagesModule";
 import Pagination from "./UI/Pagination.vue";
 import {
   PACKAGE_GET_PACKAGE_BY_NAME_ACTION,
   PACKAGE_SET_IS_SHOW_MODAL_MUTATION,
   PACKAGE_SET_PAGE_MUTATION,
-} from "../store/modules/packagesModule";
+  PACKAGE_SEARCHED_PACKAGES_GETTER,
+  PACKAGE_GET_LIST_TOP_PACKAGES_ACTION,
+} from "@/store/modules/packagesModule";
+import { PACKAGE_SET_SEARCH_QUERY_MUTATION } from "../store/modules/packagesModule";
 
 const store = useStore();
-const packages = computed(() => store.state.package.packages);
+const searchedPackages = computed(() => {
+  return store.getters[PACKAGE_SEARCHED_PACKAGES_GETTER];
+});
 const page = computed(() => store.state.package.page);
 const totalPages = computed(() => store.state.package.totalPages);
 
 const handleChangePage = (newPage) => {
   store.commit(PACKAGE_SET_PAGE_MUTATION, newPage);
+  store.commit(PACKAGE_SET_SEARCH_QUERY_MUTATION, "");
   store.dispatch(PACKAGE_GET_LIST_TOP_PACKAGES_ACTION);
 };
 
