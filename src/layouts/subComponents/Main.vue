@@ -1,13 +1,10 @@
 <template>
   <main>
-    <RouterView />
+    <slot></slot>
   </main>
 </template>
 
-<script setup>
-import { RouterView } from 'vue-router';
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
 main {

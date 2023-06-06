@@ -20,7 +20,9 @@
       </tr>
     </tbody>
   </v-table>
-  <p v-show="searchedPackages.lenght === 0" class="no-found">No data found</p>
+  <p v-show="searchedPackages.length === 0" class="no-found">
+    No data found
+  </p>
   <Pagination
     :page="page"
     :total-pages="totalPages"
@@ -45,6 +47,9 @@ const store = useStore();
 const searchedPackages = computed(() => {
   return store.getters[PACKAGE_SEARCHED_PACKAGES_GETTER];
 });
+
+console.log(searchedPackages.value.length);
+
 const page = computed(() => store.state.package.page);
 const totalPages = computed(() => store.state.package.totalPages);
 

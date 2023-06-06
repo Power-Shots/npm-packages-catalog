@@ -2,7 +2,7 @@
   <div class="common-layout">
     <Header />
     <Main>
-      <router-view></router-view>
+      <RouterView />
     </Main>
     <Footer />
   </div>
@@ -12,6 +12,7 @@
 import Header from "./subComponents/Header.vue";
 import Main from "./subComponents/Main.vue";
 import Footer from "./subComponents/Footer.vue";
+import { RouterView } from "vue-router";
 </script>
 
 <style lang="scss" scoped>
