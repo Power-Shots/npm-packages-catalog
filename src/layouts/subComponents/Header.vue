@@ -2,7 +2,9 @@
   <header>
     <v-container>
       <v-row no-gutters>
-        <v-col cols="8"><h1>Packges App</h1> </v-col>
+        <v-col cols="8"
+          ><h1><RouterLink class="link" to="/"> Packges App</RouterLink></h1>
+        </v-col>
         <v-col cols="4">
           <v-form
             @submit.prevent="
@@ -30,9 +32,10 @@
 
 <script setup>
 import { ref } from "vue";
+import { RouterLink } from "vue-router";
 import { useStore } from "vuex";
 import { PACKAGE_SET_SEARCH_QUERY_MUTATION } from "../../store/modules/packagesModule";
-const store = useStore('package');
+const store = useStore("package");
 const search = ref("");
 </script>
 
@@ -46,6 +49,13 @@ header {
   align-items: center;
   background: $background-gray900;
 
+  .link {
+    color: inherit;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
   .search-from {
     display: flex;
     justify-content: flex-end;
