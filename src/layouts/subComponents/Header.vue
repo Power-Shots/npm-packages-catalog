@@ -3,26 +3,18 @@
     <v-container>
       <v-row no-gutters>
         <v-col cols="8"
-          ><h1><RouterLink class="link" to="/">Packages App</RouterLink></h1>
+          ><h1>
+            <RouterLink class="link" to="/">Packages App</RouterLink>
+          </h1>
         </v-col>
         <v-col cols="4">
-          <v-form
-            @submit.prevent="
-              {
-              }
-            "
-            class="search-from"
-          >
+          <v-form @submit.prevent="handleSearch" class="search-from">
             <v-text-field
-              v-model.trim="search"
+              v-model.trim:value="search"
               density="compact"
               label="Package name"
             ></v-text-field>
-            <v-btn
-              @click="store.commit(PACKAGE_SET_SEARCH_QUERY_MUTATION, search)"
-              type="submit"
-              >Search</v-btn
-            >
+            <v-btn type="submit">Search</v-btn>
           </v-form>
         </v-col>
       </v-row>
@@ -35,8 +27,12 @@ import { ref } from "vue";
 import { RouterLink } from "vue-router";
 import { useStore } from "vuex";
 import { PACKAGE_SET_SEARCH_QUERY_MUTATION } from "../../store/modules/packagesModule";
-const store = useStore("package");
+const store = useStore();
 const search = ref("");
+
+const handleSearch = () => {
+  store.commit(PACKAGE_SET_SEARCH_QUERY_MUTATION, search.value);
+};
 </script>
 
 <style lang="scss" scoped>

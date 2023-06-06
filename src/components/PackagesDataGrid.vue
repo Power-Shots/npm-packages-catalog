@@ -20,6 +20,7 @@
       </tr>
     </tbody>
   </v-table>
+  <p v-show="searchedPackages.lenght === 0" class="no-found">No data found</p>
   <Pagination
     :page="page"
     :total-pages="totalPages"
@@ -89,5 +90,11 @@ onMounted(() => {
       background: $background-gray800;
     }
   }
+}
+
+.no-found {
+  text-align: center;
+  font-size: 24px;
+  margin: 12px auto;
 }
 </style>
