@@ -1,9 +1,10 @@
 <template>
   <div class="common-layout">
-    
     <Header />
-    <Main />
-    <Footer/>
+    <Main>
+      <router-view></router-view>
+    </Main>
+    <Footer />
   </div>
 </template>
 
@@ -14,9 +15,9 @@ import Footer from "./subComponents/Footer.vue";
 </script>
 
 <style lang="scss" scoped>
-  .common-layout {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+.common-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 </style>

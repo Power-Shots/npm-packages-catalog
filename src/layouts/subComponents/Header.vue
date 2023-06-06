@@ -32,7 +32,7 @@
 import { ref } from "vue";
 import { useStore } from "vuex";
 import { PACKAGE_SET_SEARCH_QUERY_MUTATION } from "../../store/modules/packagesModule";
-const store = useStore();
+const store = useStore('package');
 const search = ref("");
 </script>
 
