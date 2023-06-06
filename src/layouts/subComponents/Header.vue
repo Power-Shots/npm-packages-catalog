@@ -3,7 +3,7 @@
     <v-container>
       <v-row no-gutters>
         <v-col cols="8"
-          ><h1><RouterLink class="link" to="/"> Packges App</RouterLink></h1>
+          ><h1><RouterLink class="link" to="/">Packages App</RouterLink></h1>
         </v-col>
         <v-col cols="4">
           <v-form
